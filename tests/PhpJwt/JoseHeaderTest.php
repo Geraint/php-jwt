@@ -89,4 +89,15 @@ class JoseHeaderTest extends TestCase
         $this->expectexceptionmessage('"alg"');
         $sut = new JoseHeader([]);
     }
+
+    /**
+     * @test
+     */
+    public function canGetAlg(): void
+    {
+        $sut = new JoseHeader([
+            'alg' => 'HS256',
+        ]);
+        $this->assertSame('HS256', $sut->getAlg());
+    }
 }

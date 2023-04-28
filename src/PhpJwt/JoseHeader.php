@@ -24,6 +24,11 @@ class JoseHeader
         }
     }
 
+    public function getAlg(): string
+    {
+        return $this->parameters['alg'];
+    }
+
     public function getJson(): string
     {
         $object = new stdClass();
