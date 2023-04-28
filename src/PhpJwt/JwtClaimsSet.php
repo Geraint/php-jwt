@@ -12,6 +12,6 @@ class JwtClaimsSet
 
     public function getJson(): string
     {
-        return json_encode($this->claims);
+        return json_encode($this->claims, JSON_THROW_ON_ERROR);
     }
 }
