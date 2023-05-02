@@ -6,6 +6,9 @@ namespace PhpJwt;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \PhpJwt\JoseHeader
+ */
 class JoseHeaderTest extends TestCase
 {
     /**
