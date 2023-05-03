@@ -29,6 +29,18 @@ class EncoderFactoryTest extends TestCase
                 'algorithm' => 'HS256',
                 'expected'  => HmacEncoder::class
             ],
+            'HS348' => [
+                'algorithm' => 'HS348',
+                'expected'  => HmacEncoder::class
+            ],
+            'HS512' => [
+                'algorithm' => 'HS512',
+                'expected'  => HmacEncoder::class
+            ],
+            'RS256' => [
+                'algorithm' => 'RS256',
+                'expected'  => RsassaPkcs1V15Encoder::class
+            ],
         ];
     }
 }
