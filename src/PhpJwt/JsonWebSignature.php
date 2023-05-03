@@ -14,7 +14,7 @@ class JsonWebSignature
 
     public function getSignedToken(string $secret): string
     {
-        $encoder = new Encoder\HmacEncoder($this->header, $this->claims);
-        return $encoder->getSignedToken($secret);
+        $encoder = new Encoder\HmacEncoder();
+        return $encoder->getSignedToken($this->header, $this->claims, $secret);
     }
 }
