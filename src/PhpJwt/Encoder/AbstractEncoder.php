@@ -8,8 +8,7 @@ use PhpJwt;
 
 abstract class AbstractEncoder
 {
-    // FIXME: different algorithms might not need a secret, but rather a public/private key pair
-    // abstract public function getSignedToken(PhpJwt\JoseHeader $header, PhpJwt\JwtClaimsSet $claims, string $secret): string;
+    abstract public function getSignedToken(PhpJwt\JoseHeader $header, PhpJwt\JwtClaimsSet $claims, array $parameters = []): string;
 
     protected function base64UrlEncode(string $text): string
     {

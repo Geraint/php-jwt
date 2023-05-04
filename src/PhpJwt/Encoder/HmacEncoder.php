@@ -8,8 +8,9 @@ use PhpJwt;
 
 class HmacEncoder extends AbstractEncoder
 {
-    public function getSignedToken(PhpJwt\JoseHeader $header, PhpJwt\JwtClaimsSet $claims, string $secret): string
+    public function getSignedToken(PhpJwt\JoseHeader $header, PhpJwt\JwtClaimsSet $claims, array $parameters = []): string
     {
+        $secret = $parameters['secret'];
         $headerEncoded = $this->base64UrlEncode($header->getJson());
         $payloadEncoded = $this->base64UrlEncode($claims->getJson());
         $algorithm = $this->getHmacAlgorithm($header->getAlg());
