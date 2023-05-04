@@ -8,15 +8,13 @@ use PhpJwt\Encoder;
 
 class JsonWebSignature
 {
-    public function __construct(private JoseHeader $header, private JwtClaimsSet $claims)
+    public function __construct(private Encoder\EncoderFactory $encoderFactory)
     {
     }
 
-    public function getSignedToken(string $secret): string
+    public function getSignedToken(JoseHeader $header, JwtClaimsSet $claims, $parameters): string
     {
-        $encoder = new Encoder\HmacEncoder();
-        return $encoder->getSignedToken($this->header, $this->claims, [
-            'secret' => $secret
-        ]);
+        $encoder = $this->encoderFactory->createEncoder($header->getAlg());
+        return $encoder->getSignedToken($header, $claims, $parameters);
     }
 }
