@@ -6,7 +6,7 @@ It is not recommended for Production use.
 
 ![Build Status](https://github.com/Geraint/php-jwt/actions/workflows/build-and-test.yml/badge.svg)
 
-Usage
+## Usage
 
 ```php
 <?php
