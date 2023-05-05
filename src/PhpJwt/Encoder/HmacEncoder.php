@@ -36,6 +36,6 @@ class HmacEncoder extends AbstractEncoder
         if (array_key_exists($key, $algorithms)) {
             return $algorithms[$key];
         }
-        throw new Exception("Unrecognised algorithm '{$key}'");
+        throw new PhpJwt\Exception("Unrecognised algorithm '{$key}'");
     }
 }
