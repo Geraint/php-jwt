@@ -14,6 +14,34 @@ class HmacEncoderTest extends TestCase
 {
     /**
      * @test
+     * @dataProvider parametersProvider
+     */
+    public function throwsExceptionIfSecretIsNotProvided(array $parameters): void
+    {
+        $this->expectException(PhpJwt\Exception::class);
+        $header = $this->createStub(PhpJwt\JoseHeader::class);
+        $claims = $this->createStub(PhpJwt\JwtClaimsSet::class);
+        $sut = new HmacEncoder();
+        $sut->getSignedToken($header, $claims, $parameters);
+    }
+
+    public static function parametersProvider(): array
+    {
+        return [
+            'no parameters' => [
+                'parameters' => [
+                ],
+            ],
+            'wrong parameters' => [
+                'parameters' => [
+                    'private_key' => 'does not matter what this is',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @test
      * @dataProvider hmacAlgorithmProvider
      */
     public function canSignTokenWithHmacAlgorithms(string $alg, string $expected): void

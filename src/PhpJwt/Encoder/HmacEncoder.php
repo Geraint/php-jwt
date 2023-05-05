@@ -10,13 +10,20 @@ class HmacEncoder extends AbstractEncoder
 {
     public function getSignedToken(PhpJwt\JoseHeader $header, PhpJwt\JwtClaimsSet $claims, array $parameters = []): string
     {
-        $secret = $parameters['secret'];
+        $this->validateParameters($parameters);
         $headerEncoded = $this->base64UrlEncode($header->getJson());
         $payloadEncoded = $this->base64UrlEncode($claims->getJson());
         $algorithm = $this->getHmacAlgorithm($header->getAlg());
         $data = "{$headerEncoded}.{$payloadEncoded}";
-        $signature = $this->base64UrlEncode(hash_hmac($algorithm, $data, $secret, true));
+        $signature = $this->base64UrlEncode(hash_hmac($algorithm, $data, $parameters['secret'], true));
         return "{$headerEncoded}.{$payloadEncoded}.{$signature}";
+    }
+
+    private function validateParameters(array $parameters): void
+    {
+        if (! array_key_exists(key: 'secret', array: $parameters)) {
+            throw new PhpJwt\Exception("Required parameter 'secret' is not set");
+        }
     }
 
     private function getHmacAlgorithm(string $key): string
