@@ -14,6 +14,21 @@ class JoseHeaderTest extends TestCase
     /**
      * @test
      */
+    public function canGetJson(): void
+    {
+        $parameters = [
+            'alg' => 'RS256',
+            'typ' => 'JWT',
+        ];
+        $expected = json_encode($parameters);
+        $sut = new JoseHeader($parameters);
+        $actual = $sut->getJson();
+        $this->assertSame($expected, $actual);
+    }
+
+    /**
+     * @test
+     */
     public function typeIsJwt(): void
     {
         $sut = new JoseHeader([
@@ -95,12 +110,21 @@ class JoseHeaderTest extends TestCase
 
     /**
      * @test
+     * @dataProvider algProvider
      */
-    public function canGetAlg(): void
+    public function canGetAlg(string $alg): void
     {
         $sut = new JoseHeader([
-            'alg' => 'HS256',
+            'alg' => $alg,
         ]);
-        $this->assertSame('HS256', $sut->getAlg());
+        $this->assertSame($alg, $sut->getAlg());
+    }
+
+    public static function algProvider(): array
+    {
+        return [
+            'HS256' => [ 'alg' => 'HS256' ],
+            'RS256' => [ 'alg' => 'RS256' ],
+        ];
     }
 }

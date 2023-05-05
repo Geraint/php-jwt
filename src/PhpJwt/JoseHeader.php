@@ -32,24 +32,24 @@ class JoseHeader
     public function getJson(): string
     {
         $object = new stdClass();
-        $object->typ = 'JWT';
-        $object->alg = $this->parameters['alg'];
-        foreach ([
-            'cty',
-            'iss',
-            'sub',
-            'aud',
-        ] as $key) {
-            $object = $this->maybeAddParameter($key, $object);
+        foreach ($this->parameters as $key => $value) {
+            if ($this->isValidProperty($key)) {
+                $object->$key = $value;
+            }
         }
+        $object->typ = 'JWT';
         return json_encode($object, JSON_THROW_ON_ERROR);
     }
 
-    private function maybeAddParameter(string $key, stdClass $object): stdClass
+    private function isValidProperty($key): bool
     {
-        if (array_key_exists($key, $this->parameters)) {
-            $object->$key = $this->parameters[$key];
-        }
-        return $object;
+        return in_array($key, [
+            'alg',
+            'aud',
+            'cty',
+            'iss',
+            'sub',
+            'typ',
+        ]);
     }
 }
