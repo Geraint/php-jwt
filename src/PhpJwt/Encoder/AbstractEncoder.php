@@ -10,8 +10,8 @@ abstract class AbstractEncoder
 {
     abstract public function getSignedToken(PhpJwt\JoseHeader $header, PhpJwt\JwtClaimsSet $claims, array $parameters = []): string;
 
-    protected function base64UrlEncode(string $text): string
+    protected function base64UrlEncode(string $data): string
     {
-        return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($text));
+        return (new Base64UrlEncoder())->encode($data);
     }
 }
