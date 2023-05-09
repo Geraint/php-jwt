@@ -14,10 +14,6 @@ class JwtClaimsSet
 
     public function getJson(): string
     {
-        $object = new stdClass();
-        foreach ($this->claims as $key => $value) {
-            $object->$key = $value;
-        }
-        return json_encode($object, JSON_THROW_ON_ERROR);
+        return json_encode((object) $this->claims, JSON_THROW_ON_ERROR);
     }
 }
