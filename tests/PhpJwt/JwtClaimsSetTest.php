@@ -31,4 +31,15 @@ class JwtClaimsSetTest extends TestCase
             $this->assertSame($value, $decoded->$key);
         }
     }
+
+    /**
+     * @test
+     */
+    public function emptyClaimsJsonIsStillObject(): void
+    {
+        $sut = new JwtClaimsSet([]);
+        $json = $sut->getJson();
+        $decoded = json_decode($json);
+        $this->assertIsObject($decoded);
+    }
 }
